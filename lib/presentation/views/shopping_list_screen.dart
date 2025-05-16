@@ -1,6 +1,7 @@
 // lib/views/shopping_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shopping_cart_app/core/utils/dialog_utils.dart';
 import 'package:shopping_cart_app/presentation/viewmodel/shopping_viewmodel.dart';
 import 'package:shopping_cart_app/presentation/widgets/list_item.dart';
 
@@ -24,45 +25,20 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
     super.dispose();
   }
 
-  void _showAddItemDialog() {
-    showDialog(
+  void _handleAddItem() {
+    showAddItemDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Add New Item'),
-            content: TextField(
-              controller: _addItemController,
-              autofocus: true,
-              decoration: const InputDecoration(
-                hintText: 'Enter item name',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_addItemController.text.trim().isNotEmpty) {
-                    await ref
-                        .read(shoppingViewmodelProvider.notifier)
-                        .addItem(_addItemController.text);
-                    _addItemController.clear();
-                    if (mounted) Navigator.pop(context);
-                  }
-                },
-                child: const Text('Add'),
-              ),
-            ],
-          ),
+      ref: ref,
+      controller: _addItemController,
+      onAdd: (itemName) async {
+        await ref.read(shoppingViewModelProvider.notifier).addItem(itemName);
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final itemsAsync = ref.watch(shoppingViewmodelProvider);
+    final itemsAsync = ref.watch(shoppingViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Shopping List')),
@@ -89,22 +65,22 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
                   item: item,
                   onToggle:
                       (isPurchased) => ref
-                          .read(shoppingViewmodelProvider.notifier)
+                          .read(shoppingViewModelProvider.notifier)
                           .togglePurchasedStatus(item),
                   onEdit:
                       (newName) => ref
-                          .read(shoppingViewmodelProvider.notifier)
+                          .read(shoppingViewModelProvider.notifier)
                           .updateItemName(item, newName),
                   onDelete:
                       () => ref
-                          .read(shoppingViewmodelProvider.notifier)
+                          .read(shoppingViewModelProvider.notifier)
                           .deleteItem(item.id),
                 );
               },
             ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showAddItemDialog,
+        onPressed: _handleAddItem,
         child: const Icon(Icons.add),
       ),
     );
