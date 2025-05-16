@@ -20,7 +20,11 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      appBarTheme: AppBarTheme(centerTitle: true),
+      appBarTheme: AppBarTheme(
+        centerTitle: true,
+        backgroundColor: colorScheme.secondary,
+        titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      ),
     );
   }
 }
