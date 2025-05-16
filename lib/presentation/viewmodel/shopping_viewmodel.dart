@@ -6,7 +6,7 @@ import 'package:shopping_cart_app/data/repositories/shopping_repository.dart';
 part 'shopping_viewmodel.g.dart';
 
 @riverpod
-class ShoppingListViewModel extends _$ShoppingListViewModel {
+class ShoppingViewmodel extends _$ShoppingViewmodel {
   late final ShoppingRepository _repository = ref.read(
     shoppingRepositoryProvider,
   );
