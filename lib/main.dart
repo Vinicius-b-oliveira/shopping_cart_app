@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopping_cart_app/app.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,5 +20,5 @@ Future<void> main() async {
 
   await Supabase.initialize(url: baseUrl, anonKey: anonKey);
 
-  runApp(ShoppingApp());
+  runApp(ProviderScope(child: ShoppingApp()));
 }
