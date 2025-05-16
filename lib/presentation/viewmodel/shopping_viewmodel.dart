@@ -6,7 +6,7 @@ import 'package:shopping_cart_app/data/repositories/shopping_repository.dart';
 part 'shopping_viewmodel.g.dart';
 
 @riverpod
-class ShoppingViewmodel extends _$ShoppingViewmodel {
+class ShoppingViewModel extends _$ShoppingViewModel {
   late final ShoppingRepository _repository = ref.read(
     shoppingRepositoryProvider,
   );
@@ -37,13 +37,18 @@ class ShoppingViewmodel extends _$ShoppingViewmodel {
   }
 
   Future<void> togglePurchasedStatus(ShoppingItem item) async {
-    state = const AsyncValue.loading();
-    try {
-      await _repository.togglePurchasedStatus(item.id, item.isPurchased);
-      state = await AsyncValue.guard(_fetchItems);
-    } catch (e) {
-      state = AsyncValue.error(e, StackTrace.current);
-    }
+    final currentList = state.value ?? [];
+    final updatedList =
+        currentList
+            .map(
+              (i) =>
+                  i.id == item.id ? i.copyWith(isPurchased: !i.isPurchased) : i,
+            )
+            .toList();
+
+    state = AsyncValue.data(updatedList);
+
+    await _repository.togglePurchasedStatus(item.id, item.isPurchased);
   }
 
   Future<void> updateItemName(ShoppingItem item, String newName) async {
