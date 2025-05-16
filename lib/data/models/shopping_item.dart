@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shopping_cart_app/core/utils/datetime_converter';
+import 'package:shopping_cart_app/core/utils/datetime_converter.dart';
 
 part 'shopping_item.freezed.dart';
 part 'shopping_item.g.dart';
