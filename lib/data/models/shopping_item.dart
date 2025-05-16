@@ -11,8 +11,10 @@ abstract class ShoppingItem with _$ShoppingItem {
   const factory ShoppingItem({
     required String id,
     required String name,
-    @Default(false) bool isPurchased,
-    @DateTimeConverter() required DateTime createdAt,
+    @JsonKey(name: 'is_purchased') @Default(false) bool isPurchased,
+    @JsonKey(name: 'created_at')
+    @DateTimeConverter()
+    required DateTime createdAt,
   }) = _ShoppingItem;
 
   factory ShoppingItem.fromJson(Map<String, dynamic> json) =>
