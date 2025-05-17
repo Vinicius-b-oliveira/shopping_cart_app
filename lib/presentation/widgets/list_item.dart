@@ -84,7 +84,7 @@ class _ListItemState extends State<ListItem> {
       trailing:
           _isEditing
               ? IconButton(
-                icon: const Icon(Icons.check),
+                icon: const Icon(Icons.check, color: Colors.greenAccent),
                 onPressed: _toggleEdit,
               )
               : Row(
@@ -95,7 +95,7 @@ class _ListItemState extends State<ListItem> {
                     onPressed: _toggleEdit,
                   ),
                   IconButton(
-                    icon: const Icon(Icons.delete),
+                    icon: const Icon(Icons.delete, color: Colors.redAccent),
                     onPressed: widget.onDelete,
                   ),
                 ],

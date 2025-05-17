@@ -25,6 +25,10 @@ class AppTheme {
         backgroundColor: colorScheme.secondary,
         titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.secondary,
+        iconSize: 30.0,
+      ),
     );
   }
 }

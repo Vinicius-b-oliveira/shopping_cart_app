@@ -41,7 +41,7 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
     final itemsAsync = ref.watch(shoppingViewModelProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Shopping List')),
+      appBar: AppBar(title: const Text('Lista de Compras')),
       body: itemsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error: $error')),

@@ -12,21 +12,21 @@ Future<void> showAddItemDialog({
     context: context,
     builder:
         (context) => AlertDialog(
-          title: const Text('Add New Item'),
+          title: const Text('Adicione um novo produto'),
           content: TextField(
             controller: controller,
             autofocus: true,
             decoration: const InputDecoration(
-              hintText: 'Enter item name',
+              hintText: 'Nome do produto',
               border: OutlineInputBorder(),
             ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: const Text('Cancelar'),
             ),
-            ElevatedButton(
+            FilledButton(
               onPressed: () async {
                 if (controller.text.trim().isNotEmpty) {
                   await onAdd(controller.text.trim());
@@ -34,7 +34,7 @@ Future<void> showAddItemDialog({
                   if (context.mounted) Navigator.pop(context);
                 }
               },
-              child: const Text('Add'),
+              child: const Text('Adicionar'),
             ),
           ],
         ),
