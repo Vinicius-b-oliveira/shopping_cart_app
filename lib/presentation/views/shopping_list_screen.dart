@@ -44,7 +44,16 @@ class _ShoppingListScreenState extends ConsumerState<ShoppingListScreen> {
                     ? _buildItemList(itemsAsync.value ?? [])
                     : const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error: $error')),
-        data: (items) => _buildItemList(items),
+        data:
+            (items) =>
+                items.isEmpty
+                    ? Center(
+                      child: Text(
+                        'Ainda não há nenhum item na lista!',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
+                    : _buildItemList(items),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _handleAddItem,
