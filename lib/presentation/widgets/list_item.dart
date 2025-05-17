@@ -30,6 +30,14 @@ class _ListItemState extends State<ListItem> {
   }
 
   @override
+  void didUpdateWidget(ListItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.item.name != widget.item.name) {
+      _controller.text = widget.item.name;
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -37,8 +45,12 @@ class _ListItemState extends State<ListItem> {
 
   void _toggleEdit() {
     setState(() {
-      if (_isEditing && _controller.text.trim().isNotEmpty) {
-        widget.onEdit(_controller.text);
+      if (_isEditing) {
+        if (_controller.text.trim().isNotEmpty) {
+          widget.onEdit(_controller.text);
+        } else {
+          _controller.text = widget.item.name;
+        }
       }
       _isEditing = !_isEditing;
     });
@@ -66,6 +78,14 @@ class _ListItemState extends State<ListItem> {
                 autofocus: true,
                 decoration: const InputDecoration(border: InputBorder.none),
                 style: Theme.of(context).textTheme.bodyLarge,
+                onSubmitted: (value) {
+                  if (value.trim().isNotEmpty) {
+                    widget.onEdit(value);
+                    setState(() {
+                      _isEditing = false;
+                    });
+                  }
+                },
               )
               : Text(
                 widget.item.name,

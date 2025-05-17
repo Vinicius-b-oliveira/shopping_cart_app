@@ -1,4 +1,3 @@
-// lib/viewmodels/shopping_list_viewmodel.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shopping_cart_app/data/models/shopping_item.dart';
 import 'package:shopping_cart_app/data/repositories/shopping_repository.dart';
